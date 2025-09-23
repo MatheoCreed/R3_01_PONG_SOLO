@@ -55,7 +55,6 @@ function moveBall() {
     ball.x += ball.dx;
     ball.y += ball.dy;
 
-    // Bounce on walls
     if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
         ball.dx = -ball.dx;
     }
@@ -63,7 +62,6 @@ function moveBall() {
         ball.dy = -ball.dy;
     }
 
-    // Paddle collision
     if (
         ball.y + ball.radius > paddle.y &&
         ball.x > paddle.x &&
@@ -71,31 +69,24 @@ function moveBall() {
     ) {
         ball.dy = -ball.dy;
         score++;
-    }
-
-
-    let ballSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-
-    if (
-        ball.y + ball.radius > paddle.y &&
-        ball.x > paddle.x &&
-        ball.x < paddle.x + paddle.width
-    ) {
-        ball.dy = -ball.dy;
-        score++;
-        let speedIncrease = 0.5;
-        let angle = Math.atan2(ball.dy, ball.dx);
+        let ballSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
+        let speedIncrease = 0.2;
         ballSpeed += speedIncrease;
+        let angle = Math.atan2(ball.dy, ball.dx);
         ball.dx = ballSpeed * Math.cos(angle);
         ball.dy = ballSpeed * Math.sin(angle);
     }
+
     if (ball.y + ball.radius > canvas.height) {
         ball.x = canvas.width / 2;
         ball.y = canvas.height / 2;
         score = 0;
         startTime = Date.now();
+        ball.dx = 3;
+        ball.dy = -3;
     }
 }
+
 
 function drawBall() {
     ctx.beginPath();
