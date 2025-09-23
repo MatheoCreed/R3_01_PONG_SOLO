@@ -1,4 +1,36 @@
-p{
-    color: rgb(255, 0, 0);
-    font-size: 20px;
+canvas {
+    border: 3px solid rgb(255, 0, 0);
+    border-radius: 3%;
+    background-color: rgb(200, 200, 200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.BoutonDirection {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media screen and (min-width: 320px) {
+    p{
+        color: rgb(0, 255, 0);
+        font-size: 30px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    p{
+        color: rgb(0, 0, 255);
+        font-size: 40px;
+    }
+
+}
+
+@media screen and (min-width: 1024px) {
+    p{
+        color: rgb(255, 0, 0);
+        font-size: 20px;
+    }
 }

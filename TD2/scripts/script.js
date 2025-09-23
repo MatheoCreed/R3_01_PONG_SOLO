@@ -17,13 +17,14 @@ function dessinerScore() {
 }
 
 let paddle = {
-    width: 100,
+    width: 60,
     height: 15,
     x: (canvas.width - 100) / 2,
-    y: canvas.height - 20,
+    y: canvas.height - 10,
     speed: 7,
     dx: 0
 };
+
 let ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
@@ -47,8 +48,10 @@ function movePaddle() {
 }
 
 function drawPaddle() {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "blue";    
     ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
+    ctx.strokeStyle="red";
+    ctx.stroke;
 }
 
 function moveBall() {
@@ -70,7 +73,7 @@ function moveBall() {
         ball.dy = -ball.dy;
         score++;
         let ballSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-        let speedIncrease = 0.2;
+        let speedIncrease = 0.3;
         ballSpeed += speedIncrease;
         let angle = Math.atan2(ball.dy, ball.dx);
         ball.dx = ballSpeed * Math.cos(angle);
@@ -85,6 +88,7 @@ function moveBall() {
         ball.dx = 3;
         ball.dy = -3;
     }
+    
 }
 
 
@@ -94,6 +98,8 @@ function drawBall() {
     ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
+    ctx.strokeStyle = "white";
+    ctx.stroke();
 }
 
 setInterval(() => {
