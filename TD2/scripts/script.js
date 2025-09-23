@@ -108,6 +108,8 @@ setInterval(() => {
         const startBtn = document.createElement('button');
         startBtn.textContent = "Jouer";
         startBtn.style.position = "absolute";
+        startBtn.style.left ="48%";
+        startBtn.style.right ="48%";
         document.body.appendChild(startBtn);
 
         window.timerStarted = false;
