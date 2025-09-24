@@ -12,14 +12,21 @@
     <canvas id="pong" width="290" height="500" aria-label="Jeu de Pong solo">
         Le navigateur ne supporte pas les canvas.
     </canvas>
-    <p></p>
-    <div class="scrollBar"></div>
-    <div class="BoutonDirection">
-        <button class="BoutonDirection"><</button>
-        <button class="BoutonDirection">></button>  
+    <div class="divButton">
+        <button id="btnLeft" class="BoutonDirection"><</button>
+        <button id="btnRight" class="BoutonDirection">></button>  
     </div>
-    <div>
-        <p>Texte</p>
+    <div class="boutonText">
+        <H1>Pong Solo</H1>
+        <p>Les règles du jeu sont simples, un score apparaît
+            au lancement du jeu, à chaque fois que la balle (en rouge) 
+            touche votre raquette en bas de l'écran (en bleu)
+            , le score augmente, mais la vitesse 
+            de la balle aussi !
+            L'objectif est de ne pas laisser la balle 
+            toucher le bas de l'écran. 
+            <br> Bon jeu ! 
+        </p>
         <script></script>
     </div>
 </body>
