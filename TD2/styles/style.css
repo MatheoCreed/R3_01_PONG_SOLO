@@ -58,6 +58,7 @@ p{
     border-width: 5px;
 }
 
+/* Affichage Telephone */
 @media screen and (min-width: 320px) {
     H1{
         color: rgb(0, 255, 0);
@@ -69,6 +70,7 @@ p{
     }
 }
 
+/* Affichage Tablette */
 @media screen and (min-width: 768px) {
     H1{
         color: rgb(0, 0, 255);
@@ -89,6 +91,7 @@ p{
 
 }
 
+/* Affichage Ecran ordinateur */
 @media screen and (min-width: 1024px) {
     H1{
         color: rgb(255, 0, 0);
@@ -111,6 +114,7 @@ p{
 }
 
 
+/* Affichage Grand écran */
 @media screen and (min-width: 1920px) {
     H1{
         color: rgb(255, 0, 0);

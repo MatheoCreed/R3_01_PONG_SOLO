@@ -2,6 +2,8 @@ const canvas = document.getElementById("pong");
 const ctx = canvas.getContext('2d');
 const btnLeft = document.getElementById("btnLeft");
 const btnRight = document.getElementById("btnRight");
+const scoreAffichage = document.getElementById("scoreAffichage");
+
 
 
 ctx.fillStyle = "black";
@@ -11,6 +13,7 @@ let score = 0;
 let startTime = Date.now();
 let gameOver = false;
 let ecoule = 0;
+let ecoulePerdu = 0;
 
 let paddle = {
     width: 60,
@@ -133,15 +136,17 @@ function drawBall() {
     ctx.stroke();
 }
 
+
 function drawGameOver() {
-    
-    let ecoule = Math.floor((Date.now() - startTime) / 1000)
+    let ecoule = ecoulePerdu; 
+
     ctx.font = "30px Arial";
     ctx.fillStyle = "yellow";
-    ctx.fillText("Vous avez perdu avec un score de " + ecoule, canvas.width / 2 -110 , 
-    canvas.height / 2, 220);
-    ctx.fillStyle = "cyan" 
-    ctx.fillText("Cliquez sur Jouer.", canvas.width / 2 -100 , canvas.height / 2 +30, 200);
+    ctx.fillText("Vous avez perdu avec un score de " + ecoule, 
+                 canvas.width / 2 - 110, canvas.height / 2, 220);
+    ctx.fillStyle = "cyan"; 
+    ctx.fillText("Cliquez sur Jouer.", 
+                 canvas.width / 2 - 100, canvas.height / 2 + 30, 200);
 }
 
 
@@ -150,8 +155,9 @@ setInterval(() => {
         window.startBtnAdded = true;
         const startBtn = document.createElement('button');
         startBtn.textContent = "Jouer";
-        startBtn.style.position = "fixed";
+        startBtn.style.position = "absolute";
         startBtn.style.left = "50%";
+        startBtn.style.top = "83%";
         startBtn.style.transform = "translate(-50%)";        
         document.body.appendChild(startBtn);
         
@@ -159,6 +165,7 @@ setInterval(() => {
         startBtn.addEventListener('click', () => {
             window.timerStarted = true;
             startTime = Date.now();
+            ecoulePerdu = 0;
             resetGame();
         });
     }
@@ -169,12 +176,21 @@ setInterval(() => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     if(!gameOver){
+        if(!gameOver){
+            ecoule = Math.floor((Date.now() - startTime) / 1000);
+        scoreAffichage.textContent = "Score : " + ecoule;
+
         movePaddle();
         drawPaddle();
         moveBall();
         drawBall();
     }
+
+    }
     else{
+        if (ecoulePerdu === 0) {
+            ecoulePerdu = Math.floor((Date.now() - startTime) / 1000);
+        }
         drawGameOver();
     }
 
