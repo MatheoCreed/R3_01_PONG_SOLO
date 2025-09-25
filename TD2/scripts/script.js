@@ -157,7 +157,7 @@ setInterval(() => {
         startBtn.textContent = "Jouer";
         startBtn.style.position = "absolute";
         startBtn.style.left = "50%";
-        startBtn.style.top = "83%";
+        startBtn.style.top = "84%";
         startBtn.style.transform = "translate(-50%)";        
         document.body.appendChild(startBtn);
         
