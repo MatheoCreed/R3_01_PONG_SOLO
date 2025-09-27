@@ -1,6 +1,6 @@
 🕹️ Solo Pong - Projet de Cours
 
-Ce projet est une version simplifiée de Pong, réalisée en HTML, CSS et JavaScript dans le cadre des cours.
+Ce projet est une version simplifiée de Pong, réalisée en HTML, CSS et JavaScript dans le cadre de la ressource R3_01.
 Le joueur contrôle une raquette et doit garder la balle en jeu. La balle rebondit sur les murs et la raquette.
 S’il la rate, la partie est perdue.
 
