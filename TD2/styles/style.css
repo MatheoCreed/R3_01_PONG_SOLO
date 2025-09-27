@@ -41,14 +41,6 @@ p{
     margin-top: 10%;
     
 }
-/* .BoutonDirection {
-    display: inline-block;
-    width: 80px;
-    height: 80px ;
-    border-radius: 50%;
-    border-color:red;
-    border-width: 5px;
-} */
 
 .BoutonDirection{
     width: 80px;
@@ -57,6 +49,34 @@ p{
     border-color:red;
     border-width: 5px;
 }
+
+#settings {
+  display: none;
+  position: relative; 
+  z-index: 20;
+  transition: opacity 200ms ease, transform 200ms ease;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+}
+
+#settings.open {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#settings.overlay {
+  position: fixed;
+  left: 8%;
+  right: 8%;
+  top: 18%;
+  background: rgba(0,0,0,0.85);
+  padding: 12px;
+  border-radius: 8px;
+}
+
 
 /* Affichage Telephone */
 @media screen and (min-width: 320px) {
@@ -133,3 +153,4 @@ p{
         display: none;
     }
 }
+

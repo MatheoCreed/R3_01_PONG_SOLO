@@ -3,7 +3,17 @@ const ctx = canvas.getContext('2d');
 const btnLeft = document.getElementById("btnLeft");
 const btnRight = document.getElementById("btnRight");
 const scoreAffichage = document.getElementById("scoreAffichage");
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsDiv = document.getElementById('settings');
 
+const bestScoreAffichage = document.getElementById("bestScoreAffichage");
+const bgColorInput = document.getElementById("bgColor");
+const paddleColorInput = document.getElementById("paddleColor");
+const ballColorInput = document.getElementById("ballColor");
+const accelRange = document.getElementById("accelRange");
+const accelNumber = document.getElementById("accelNumber");
+const saveSettingsBtn = document.getElementById("saveSettings");
+const resetBestBtn = document.getElementById("resetBest");
 
 
 ctx.fillStyle = "black";
@@ -14,6 +24,15 @@ let startTime = Date.now();
 let gameOver = false;
 let ecoule = 0;
 let ecoulePerdu = 0;
+
+let bestScore = parseInt(localStorage.getItem('bestScore')) || 0;
+const SETTINGS = {
+    bgColor: localStorage.getItem('bgColor') || '#c8c8c8',
+    paddleColor: localStorage.getItem('paddleColor') || 'blue',
+    ballColor: localStorage.getItem('ballColor') || 'red',
+    acceleration: parseFloat(localStorage.getItem('acceleration')) || 0.3
+};
+
 
 let paddle = {
     width: 60,
@@ -57,6 +76,36 @@ btnRight.addEventListener("touchend", () => {
     paddle.dx = 0;
 });
 
+function openSettings() {
+  settingsDiv.classList.add('open');
+  settingsDiv.setAttribute('aria-hidden', 'false');
+  settingsBtn.setAttribute('aria-expanded', 'true');
+}
+
+function closeSettings() {
+  settingsDiv.classList.remove('open');
+  settingsDiv.setAttribute('aria-hidden', 'true');
+  settingsBtn.setAttribute('aria-expanded', 'false');
+}
+
+settingsBtn.addEventListener('click', () => {
+  if (settingsDiv.classList.contains('open')) closeSettings();
+  else openSettings();
+});
+
+if (typeof saveSettingsBtn !== 'undefined') {
+  saveSettingsBtn.addEventListener('click', () => {
+    setTimeout(closeSettings, 250); 
+  });
+}
+
+document.addEventListener('click', (e) => {
+  if (!settingsDiv.classList.contains('open')) return;
+  if (!settingsDiv.contains(e.target) && e.target !== settingsBtn) {
+    closeSettings();
+  }
+});
+
 function movePaddle() {
     paddle.x += paddle.dx;
     if (paddle.x < 0) paddle.x = 0;
@@ -83,12 +132,19 @@ function resetGame() {
         dx: 3,
         dy: -3
     };
+    SETTINGS.acceleration = parseFloat(localStorage.getItem('acceleration')) || SETTINGS.acceleration;
+    SETTINGS.bgColor = localStorage.getItem('bgColor') || SETTINGS.bgColor;
+    SETTINGS.paddleColor = localStorage.getItem('paddleColor') || SETTINGS.paddleColor;
+    SETTINGS.ballColor = localStorage.getItem('ballColor') || SETTINGS.ballColor;
+    canvas.style.backgroundColor = SETTINGS.bgColor;
+
 }
 
 function drawPaddle() {
-    ctx.fillStyle = "blue";    
+    ctx.fillStyle = SETTINGS.paddleColor;
     ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-    ctx.strokeStyle="red";
+    ctx.strokeStyle = "red";
+
     ctx.stroke;
 }
 
@@ -111,11 +167,10 @@ function moveBall() {
         ball.dy = -ball.dy;
         score++;
         let ballSpeed = Math.sqrt(ball.dx * ball.dx + ball.dy * ball.dy);
-        let speedIncrease = 0.3;
-        ballSpeed += speedIncrease;
+        ballSpeed += SETTINGS.acceleration;
         let angle = Math.atan2(ball.dy, ball.dx);
         ball.dx = ballSpeed * Math.cos(angle);
-        ball.dy = ballSpeed * Math.sin(angle);
+        ball.dy = -Math.abs(ballSpeed * Math.sin(angle));
     }
 
     if (ball.y + ball.radius > canvas.height) {
@@ -129,7 +184,7 @@ function moveBall() {
 function drawBall() {
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-    ctx.fillStyle = "red";
+    ctx.fillStyle = SETTINGS.ballColor;
     ctx.fill();
     ctx.closePath();
     ctx.strokeStyle = "white";
@@ -170,11 +225,12 @@ setInterval(() => {
         });
     }
     
-    ctx.fillStyle = "black";
+    canvas.style.backgroundColor = SETTINGS.bgColor;
     
     if (!window.timerStarted) return;
+    ctx.fillStyle = SETTINGS.bgColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
+        
     if(!gameOver){
         if(!gameOver){
             ecoule = Math.floor((Date.now() - startTime) / 1000);
@@ -195,8 +251,37 @@ setInterval(() => {
     else{
         if (ecoulePerdu === 0) {
             ecoulePerdu = Math.floor((Date.now() - startTime) / 1000);
+            if (ecoulePerdu > bestScore) {
+            bestScore = ecoulePerdu;
+            localStorage.setItem('bestScore', bestScore);
+        }
+        bestScoreAffichage.textContent = "Meilleur Score : " + bestScore;
         }
         drawGameOver();
     }
 
 }, 20);
+
+bgColorInput.value = SETTINGS.bgColor;
+paddleColorInput.value = SETTINGS.paddleColor;
+ballColorInput.value = SETTINGS.ballColor;
+accelRange.value = SETTINGS.acceleration;
+accelNumber.value = SETTINGS.acceleration;
+bestScoreAffichage.textContent = "Meilleur Score : " + bestScore;
+
+accelRange.addEventListener('input', () => accelNumber.value = accelRange.value);
+accelNumber.addEventListener('input', () => accelRange.value = accelNumber.value);
+
+saveSettingsBtn.addEventListener('click', () => {
+    localStorage.setItem('bgColor', bgColorInput.value);
+    localStorage.setItem('paddleColor', paddleColorInput.value);
+    localStorage.setItem('ballColor', ballColorInput.value);
+    localStorage.setItem('acceleration', accelNumber.value);
+    alert("Réglages sauvegardés !");
+});
+
+resetBestBtn.addEventListener('click', () => {
+    bestScore = 0;
+    localStorage.setItem('bestScore', bestScore);
+    bestScoreAffichage.textContent = "Meilleur (sec) : " + bestScore;
+});

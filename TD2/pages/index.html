@@ -30,6 +30,26 @@
             <br> Bon jeu ! 
         </p>
     </div>
+    <button id="settingsBtn" aria-expanded="false" aria-controls="settings" style="position: absolute; top: 10px; right: 10px; z-index: 30;">
+    <i class="fas fa-sliders-h"></i> Réglages
+    </button>
+    <div id="settings" class="settings" aria-hidden="true">
+        <h3>Réglages</h3>
+        <label>Couleur fond: <input type="color" id="bgColor"></label>
+        <label>Couleur raquette: <input type="color" id="paddleColor"></label>
+        <label>Couleur balle: <input type="color" id="ballColor"></label>
+        <label for="accelRange">Accélération :</label>
+        <input type="range" id="accelRange" min="0" max="2" step="0.05">
+
+        <input type="number" id="accelNumber" min="0" max="2" step="0.05" style="width:60px"
+            aria-label="Valeur numérique de l'accélération">
+        <div class="settingsButtons">
+            <button id="saveSettings">Sauvegarder</button>
+            <button id="resetBest">Reinitialiser Meilleur score</button>
+        </div>
+    </div>
+    <div id="bestScoreAffichage"></div>
+
     <script></script>
 </body>
 </html>
