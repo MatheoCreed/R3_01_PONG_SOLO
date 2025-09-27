@@ -10,8 +10,16 @@ S’il la rate, la partie est perdue.
 
 🏓 La balle rebondit automatiquement sur les murs et la raquette.
 
+⚙️​ La vitesse de la balle augmente à chaque fois qu'elle touche la raquette jusqu'à un maximum de 5x sa vitesse initial. 
+
+🎛️ Un bouton paramètre cliquable fait apparaître en bas de l'écran pour choisir les couleurs des éléments du jeu ainsi que la vitesse à laquelle augmente la balle.
+
+🏆 Le meilleur score est stocké en local et est affiché en bas de l'écran.
+
 ❌ Fin de partie si la balle touche le bas de l'écran.
 
 🧮 Compteur de score (en nombre de seconde).
 
 🎨 Interface simple avec Canvas.
+
+👤 Auteur : Mathéo Duhamel - TD3 
