@@ -179,6 +179,11 @@ setInterval(() => {
         if(!gameOver){
             ecoule = Math.floor((Date.now() - startTime) / 1000);
         scoreAffichage.textContent = "Score : " + ecoule;
+        scoreAffichage.style.color = "white";
+        scoreAffichage.style.fontSize = "20px";
+        scoreAffichage.style.position = "absolute";
+        scoreAffichage.style.top = "72.5%";
+        scoreAffichage.style.left = "31%";
 
         movePaddle();
         drawPaddle();
